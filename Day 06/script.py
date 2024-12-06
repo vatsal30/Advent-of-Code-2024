@@ -8,14 +8,14 @@ def part_1(data, pos):
     point = tuple([x, y])
     d1, d2 = directions[curr_dir_idx]
     x1, y1 = x + d1, y + d2
-    if x1 >= len(data) or x1 < 0 or y1 >= len(data[0]) or y < 0:
-      break
+    if x1 >= len(data) or x1 < 0 or y1 >= len(data[0]) or y1 < 0:
+      visited.add(point)
+      return visited, len(visited)
     if data[x1][y1] == '#':
       curr_dir_idx = (curr_dir_idx + 1) % len(directions)
     else:
+      visited.add(point)
       x, y = x1, y1
-      visited.add(point) 
-  return visited, len(visited)
 
 def is_cycle(data, pos):
   visited = set()
@@ -28,13 +28,14 @@ def is_cycle(data, pos):
       return True
     direction = directions[curr_dir_idx]
     x1, y1 = x + direction[0], y + direction[1]
-    if x1 > len(data) - 1 or x1 < 0 or y1 <0 or y1> len(data[0])-1:
+    if x1 >= len(data) or x1 < 0 or y1 < 0 or y1>= len(data[0]):
       return False
     if data[x1][y1] == '#':
       curr_dir_idx = (curr_dir_idx + 1) % len(directions)
     else:
-      x, y = x1, y1
       visited.add(point)
+      x, y = x1, y1
+      
 
 def part_2(data, pos, visited):
   cycles = 0
