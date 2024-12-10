@@ -15,9 +15,6 @@ def part_2(data):
       free.append((pos, num))
       new_data.extend(['.'] * num)
       pos += num
-  print(new_data)
-  print(file)
-  print(free)
   
   for file_idx, file_size, file_id in reversed(file):
     for space_pos, (space_idx, space_size) in enumerate(free):
@@ -37,7 +34,6 @@ def part_2(data):
       checksum += cnt * int(i)
       cnt += 1
   return checksum
-
 
 def part_1(data):
     new_data = []
