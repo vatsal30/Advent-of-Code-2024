@@ -21,7 +21,7 @@ def visitor(point, grid, visited):
       dx, dy = direction
       x1, y1 = px + dx, py + dy
       if 0 <= x1 < len(grid) and 0 <= y1 < len(grid[0]):
-        if grid[x1][y1] == '.' and not visited[x1][y1]:  # Not corrupted or visited
+        if grid[x1][y1] == '.' and not visited[x1][y1]:
           visited[x1][y1] = True
           queue.append(((x1, y1), steps + 1))
   return -1
@@ -47,5 +47,6 @@ def part_2(data):
       return x,y
   return ans
 
+print(part_1(data))
 print(part_2(data))
   
