@@ -28,8 +28,7 @@ class Trie:
           node = node.children[char]
       node.is_end = True 
 
-  def search(self, design, start):
-     
+  def search(self, design, start): 
       node = self.root
       results = []
       for i in range(start, len(design)):
@@ -55,6 +54,7 @@ def part_1(designs, patterns):
         matches = trie.search(design, i)
         for end_index in matches:
             dp[end_index] = True
+        
     if dp[n]:
       ans += 1
   
@@ -74,6 +74,7 @@ def part_2(designs, patterns):
         matches = trie.search(design, i)
         for end_index in matches:
             dp[end_index] += dp[i]
+        print(dp)
     if dp[n]:
       ans += dp[n]
   
