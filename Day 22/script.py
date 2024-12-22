@@ -41,10 +41,8 @@ def part_2():
         prices = list(map(lambda x: x % 10, secrets))
         changes = [prices[i + 1] - prices[i] for i in range(len(prices) - 1)]
         results.append((prices, changes))
-    
+
     max_bananas = 0
-    best_seq= None
-    temp =[]
     banana_seq = defaultdict(int)
     for prices, changes in results:
         seen_sequences = set()
@@ -54,10 +52,6 @@ def part_2():
                 continue
             seen_sequences.add(seq)
             banana_seq[seq] += prices[i + 4]
-            if seq == (0, -2, 2, 0):
-                temp.append(prices[i + 4])
-    print(temp)
-    print(len(temp))
     
     max_bananas =  max(banana_seq.values())
     # for seq, bananas in banana_seq.items():
