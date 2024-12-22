@@ -7,7 +7,7 @@
 - To prune the secret number, calculate the value of the secret number modulo 16777216. Then, the secret number becomes the result of that operation. (If the secret number is 100000000 and you were to prune the secret number, the secret number would become 16113920.)
 '''
 from itertools import product
-from collections import defaultdict
+from collections import defaultdict, Counter, deque
 
 def mix_and_prune(secret, value):
     secret ^= value
@@ -24,8 +24,9 @@ def part_1():
         ans += num
     return ans
 
-def gen_secrets(secret):
-    secrets = []
+def gen_secrets(init_secret):
+    secrets = [init_secret]
+    secret = init_secret
     for _ in range(2000):
         secret = mix_and_prune(secret, secret * 64)
         secret = mix_and_prune(secret, secret // 32)
@@ -37,12 +38,13 @@ def part_2():
     results = []
     for secret in data:
         secrets = gen_secrets(secret)
-        prices = list(map(lambda secret: secret % 10, secrets))
+        prices = list(map(lambda x: x % 10, secrets))
         changes = [prices[i + 1] - prices[i] for i in range(len(prices) - 1)]
         results.append((prices, changes))
     
     max_bananas = 0
     best_seq= None
+    temp =[]
     banana_seq = defaultdict(int)
     for prices, changes in results:
         seen_sequences = set()
@@ -52,17 +54,20 @@ def part_2():
                 continue
             seen_sequences.add(seq)
             banana_seq[seq] += prices[i + 4]
-
-    for seq, bananas in banana_seq.items():
-        if bananas > max_bananas:
-            max_bananas = bananas
-            best_seq = seq
-    return max_bananas, best_seq
+            if seq == (0, -2, 2, 0):
+                temp.append(prices[i + 4])
+    print(temp)
+    print(len(temp))
+    
+    max_bananas =  max(banana_seq.values())
+    # for seq, bananas in banana_seq.items():
+    #     if bananas == max_bananas:
+    #         print(f"Best Sequence: {seq}")
+    return max_bananas
 
 data = []
 with open('./inputs.txt', 'r') as f:
     for line in f:
         data.append(int(line.strip()))
-print(data)
-print(part_1())
-print(part_2())
+print(f"Part 1 answer: {part_1()}")
+print(f"Part 2 answer: {part_2()}")
