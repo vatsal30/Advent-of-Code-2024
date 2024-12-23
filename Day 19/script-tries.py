@@ -40,7 +40,7 @@ class Trie:
               results.append(i + 1)  
       return results
   
-def part_1(designs, patterns):
+def part_1(designs):
   ans = 0
   trie = Trie()
   for pattern in patterns:
@@ -54,13 +54,14 @@ def part_1(designs, patterns):
         matches = trie.search(design, i)
         for end_index in matches:
             dp[end_index] = True
-        
+        print(dp)
+        print(i)
     if dp[n]:
       ans += 1
   
   return ans
 
-def part_2(designs, patterns):
+def part_2(designs):
   ans = 0
   trie = Trie()
   for pattern in patterns:
@@ -74,10 +75,10 @@ def part_2(designs, patterns):
         matches = trie.search(design, i)
         for end_index in matches:
             dp[end_index] += dp[i]
-        print(dp)
     if dp[n]:
       ans += dp[n]
   
   return ans
-print(part_1(designs, patterns))
-print(part_2(designs, patterns))
+
+print(f"Part 1 solution: {part_1(designs)}")
+print(f"Part 2 solution: {part_2(designs)}")
